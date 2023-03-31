@@ -1,12 +1,15 @@
 package com.techelevator.application;
 
+import com.techelevator.application.VendingItem;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
-public class VendingMachine 
+import java.io.FileNotFoundException;
+
+public class VendingMachine extends VendingItem
 {
-    public void run()
-    {
+
+    public void run() throws FileNotFoundException {
         while(true)
         {
             UserOutput.displayHomeScreen();
@@ -14,15 +17,24 @@ public class VendingMachine
 
             if(choice.equals("display"))
             {
-                // display the vending machine slots
+
+               displayItems();
+                //displays: slot id, product, inventory of product
             }
             else if(choice.equals("purchase"))
             {
+                System.out.println("(M) Feed Money");
+                System.out.println("(S) Select Item");
+                System.out.println("(F) Finish Transaction");
                 // make a purchase
+                //create submenu
+                //purchase method
+                //accept money
+                //finish - returns change, current balance to 0, back to main menu
             }
             else if(choice.equals("exit"))
             {
-                // good bye
+                System.out.println("Goodbye (:");
                 break;
             }
         }
