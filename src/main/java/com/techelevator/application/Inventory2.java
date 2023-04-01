@@ -30,6 +30,7 @@ public class Inventory2 {
                 String[] eachItem = line.split(",");
 
                 for (int i =0; i < eachItem.length; i+=4){
+
                     itemValues = new VendingItem2(eachItem[i+1], new BigDecimal(eachItem[i+2]), eachItem[i+3], 6 );
                     itemInfo.put(eachItem[i], itemValues);
                 }
