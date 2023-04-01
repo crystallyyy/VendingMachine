@@ -34,7 +34,6 @@ public class UserInput
         else if (option.equals("p"))
         {
             return "purchase";
-            //submenu input options
         }
         else if (option.equals("e"))
         {

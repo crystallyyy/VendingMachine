@@ -1,15 +1,23 @@
 package com.techelevator.application;
 
-import com.techelevator.application.VendingItem;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class VendingMachine extends VendingItem
 {
+    PurchaseMenu purchase;
+    Scanner scanner = new Scanner(System.in);
+
+    public VendingMachine(){
+        loadItems();
+        purchase = new PurchaseMenu(this.vendingItems);
+    }
 
     public void run() throws FileNotFoundException {
+
         while(true)
         {
             UserOutput.displayHomeScreen();
@@ -19,18 +27,26 @@ public class VendingMachine extends VendingItem
             {
 
                displayItems();
-                //displays: slot id, product, inventory of product
+
             }
             else if(choice.equals("purchase"))
             {
                 System.out.println("(M) Feed Money");
                 System.out.println("(S) Select Item");
                 System.out.println("(F) Finish Transaction");
-                // make a purchase
-                //create submenu
-                //purchase method
-                //accept money
-                //finish - returns change, current balance to 0, back to main menu
+
+                String selection = scanner.nextLine().trim().toLowerCase();
+
+                if (selection.equals("m")){
+                    //feed money method
+                } else if (selection.equals("s")) {
+                    purchase.selectItem();
+                } else if (selection.equals("f")){
+                    //give change method
+                    //update balance method
+                    UserInput.getHomeScreenOption();
+                }
+
             }
             else if(choice.equals("exit"))
             {

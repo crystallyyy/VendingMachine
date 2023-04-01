@@ -11,23 +11,34 @@ public class Inventory extends VendingItem {
     Map<String, String> slotsAndItem = new HashMap<>();
     Map<String, String> slotsAndType = new HashMap<>();
 
-    public void slotIdAndStock() {
+    public Inventory(String[] vendingItems){
+
+        this.vendingItems = vendingItems;
+
+        this.slotIdAndItem();
+        this.slotIdAndPrice();
+        this.slotIdAndType();
+        this.setSlotsAndStock();
+    }
+
+    public void setSlotsAndStock(){
 
         for (int i = 0; i < vendingItems.length; i += 4) {
             slotsAndStock.put(vendingItems[i], 6);
         }
 
-        if (slotsAndStock.containsKey(userSelection) && slotsAndStock.get(userSelection) > 0) {
+    }
 
-            slotsAndStock.put(userSelection, slotsAndStock.get(userSelection) - 1);
-        } else if (slotsAndStock.containsKey(userSelection) && slotsAndStock.get(userSelection) == 0) {
+    public void slotIdAndStock(String slotID) {
+
+        if (slotsAndStock.containsKey(slotID) && slotsAndStock.get(slotID) > 0) {
+
+            slotsAndStock.put(slotID, slotsAndStock.get(slotID) - 1);
+        } else if (slotsAndStock.containsKey(slotID) && slotsAndStock.get(slotID) == 0) {
             System.out.println("This item is out of stock :(");
-            //purchase menu method here
-        } else {
-            System.out.println("The slotID you entered does not exist");
-            //purchase menu method here
         }
     }
+
 
     public void slotIdAndPrice() {
         for (int i = 0; i < vendingItems.length; i += 4) {
