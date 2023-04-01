@@ -48,7 +48,14 @@ public class Inventory2 {
         if (itemInfo.containsKey(slotID) && itemInfo.get(slotID).getStock() > 0){
             itemInfo.put(slotID, itemInfo.get(slotID).setStock(itemInfo.get(slotID).getStock()-1));
         }
+
+
     }
+
+    public void outOfStock() {
+
+    }
+
 
     public void displayInventory() {
 
