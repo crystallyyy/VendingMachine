@@ -9,8 +9,9 @@ import java.util.Scanner;
 
 public class Inventory2 {
 
-    VendingItem2 itemValues = new VendingItem2("", new BigDecimal("0.0"), "", 0);
+    VendingItem2 itemValues = new VendingItem2("", BigDecimal.valueOf(0.0), "", 0);
     Map<String, VendingItem2 > itemInfo = new HashMap<>();
+
 
     public Map<String, VendingItem2> getItemInfo() {
 
@@ -41,20 +42,27 @@ public class Inventory2 {
 
     }
 
-    public void updateInventory(Map<String, VendingItem2> itemInfo){
+    public void updateInventory(String slotID){
 
         if (itemInfo.containsKey(slotID) && itemInfo.get(slotID).getStock() > 0){
-            itemInfo.put(slotID, itemInfo.get(slotID).getStock()-1);
+            itemInfo.put(slotID, itemInfo.get(slotID).setStock(itemInfo.get(slotID).getStock()-1));
         }
     }
 
     public void displayInventory() {
-        for (Map.Entry<String, VendingItem2> mappy : itemInfo.entrySet()) {
-            System.out.println(mappy.getKey() + " " + mappy.getValue().toString());
-            if (itemInfo.getStock() == 0){
-                System.out.println(mappy.getKey() + " " + mappy.getValue().toString() + " Item Not Available :(" );
+
+        for (String s : itemInfo.keySet()){
+
+            if (itemInfo.get(s).getStock() == 0){
+                System.out.println(s + " " + itemInfo.get(s).getItem() + " "
+                        + itemInfo.get(s).getPrice() + " Out of Stock :(");
+            } else{
+                System.out.println(s + " " + itemInfo.get(s).getItem() + " "
+                        + itemInfo.get(s).getPrice() + " " + itemInfo.get(s).getStock());
             }
+
         }
+
     }
 }
 

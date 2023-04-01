@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class VendingMachine extends VendingItem
 {
     PurchaseMenu purchase;
+    Money money;
     Scanner scanner = new Scanner(System.in);
 
     public VendingMachine(){
@@ -38,6 +39,9 @@ public class VendingMachine extends VendingItem
                 String selection = scanner.nextLine().trim().toLowerCase();
 
                 if (selection.equals("m")){
+
+                    money.feedMoney();
+
                     //feed money method
                 } else if (selection.equals("s")) {
                     purchase.selectItem();
