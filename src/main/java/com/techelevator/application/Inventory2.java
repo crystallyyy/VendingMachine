@@ -15,8 +15,14 @@ public class Inventory2 {
 
     public Map<String, VendingItem2> getItemInfo() {
 
-        return itemInfo;
+        return this.itemInfo;
     }
+
+    public VendingItem2 getItemValues(){
+
+        return this.itemValues;
+    }
+
 
     public void stockInventory() {
 
@@ -43,16 +49,17 @@ public class Inventory2 {
 
     }
 
+
     public void updateInventory(String slotID){
 
-        if (itemInfo.containsKey(slotID) && itemInfo.get(slotID).getStock() > 0){
-            itemInfo.put(slotID, itemInfo.get(slotID).setStock(itemInfo.get(slotID).getStock()-1));
+        for (String s : itemInfo.keySet()){
+
+            if(itemInfo.containsKey(s) && itemInfo.get(s).getStock() > 0){
+                int currentStock = itemInfo.get(s).getStock();
+                itemInfo.get(s).setStock(currentStock - 1);
+            }
+
         }
-
-
-    }
-
-    public void outOfStock() {
 
     }
 

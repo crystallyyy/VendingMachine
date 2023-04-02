@@ -29,6 +29,13 @@ public class UserOutput
         System.out.println();
     }
 
-    public static void display
+    public static void displayPurchaseMenu(){
+        System.out.println();
+        System.out.println("***************************************************");
+        System.out.println("                    Purchase Menu                  ");
+        System.out.println("***************************************************");
+        System.out.println();
+
+    }
 
 }

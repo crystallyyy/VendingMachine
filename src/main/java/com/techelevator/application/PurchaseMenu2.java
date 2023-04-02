@@ -5,29 +5,52 @@ import java.util.Scanner;
 
 public class PurchaseMenu2 {
     Scanner userInput = new Scanner(System.in);
-    Inventory2 inventory = new Inventory2();
-    String slotID = "";
+    Inventory2 inventory;
+    public static int count = 0;
 
-    public void selectItem() throws FileNotFoundException {
-        inventory.displayInventory();
-        System.out.println("Enter the slot ID of the item you wish to purchase: ");
-        slotID = userInput.nextLine();
-        inventory.outOfStock();
-        try{
-            if (itemInfo.containsKey(slotID) && /*getStock*/) {
+    public PurchaseMenu2( Inventory2 inventory){
+        this.inventory = inventory;
+    }
 
+    public void selectItem(String slotID) throws FileNotFoundException {
+
+
+        if (inventory.getItemInfo().containsKey(slotID)
+                && inventory.getItemInfo().get(slotID).getStock() > 0) {
+            count++;
+            inventory.updateInventory(slotID);
+
+            if(inventory.getItemInfo().get(slotID).getType().equals("Munchy")){
+                System.out.println("The item you selected is " + inventory.getItemInfo().get(slotID).getItem());
+                System.out.println("Munchy, Munchy, so Good!");
+            } else if (inventory.getItemInfo().get(slotID).getType().equals("Candy")){
+                System.out.println("The item you selected is " + inventory.getItemInfo().get(slotID).getItem());
+                System.out.println("Sugar, Sugar, so Sweet!");
+            } else if (inventory.getItemInfo().get(slotID).getType().equals("Drink")){
+                System.out.println("The item you selected is " + inventory.getItemInfo().get(slotID).getItem());
+                System.out.println("Drinky, Drinky, Slurp Slurp!");
+            } else if (inventory.getItemInfo().get(slotID).getType().equals("Gum")){
+                System.out.println("The item you selected is " + inventory.getItemInfo().get(slotID).getItem());
+                System.out.println("Chewy, Chewy, Lots O Bubbles!");
             }
+
+        } else if (inventory.getItemInfo().get(slotID).getStock() == 0){
+
+            System.out.println("This item is out of stock :(");
         }
 
 
-        }
     }
-    //rewrite method using MAP, ask daniel to see if using map properly first
-    public void selectItem(String slotID){
+
+    public void writeAudit(){
+        //TODO: PrintWriter method
+    }
+    }
 
 
-    }
-}
+
+
+
 
 
 

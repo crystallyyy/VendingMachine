@@ -4,50 +4,83 @@ import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class VendingMachine extends VendingItem
+public class VendingMachine
 {
-    PurchaseMenu purchase;
-    Money money;
+
+    Inventory2 inventory2 = new Inventory2();
+
+    PurchaseMenu2 purchase = new PurchaseMenu2(inventory2);
+    Money money = new Money(inventory2);
     Scanner scanner = new Scanner(System.in);
+    String selection = "";
 
     public VendingMachine(){
-        loadItems();
-        purchase = new PurchaseMenu(this.vendingItems);
+
     }
 
     public void run() throws FileNotFoundException {
 
+        inventory2.stockInventory();
+        UserOutput.displayHomeScreen();
+
         while(true)
         {
-            UserOutput.displayHomeScreen();
+
             String choice = UserInput.getHomeScreenOption();
 
             if(choice.equals("display"))
             {
-
-               displayItems();
+                System.out.println();
+                System.out.println("slotID -- Item -- Price -- Stock");
+                System.out.println();
+                inventory2.displayInventory();
 
             }
             else if(choice.equals("purchase"))
             {
-                System.out.println("(M) Feed Money");
-                System.out.println("(S) Select Item");
-                System.out.println("(F) Finish Transaction");
+                UserOutput.displayPurchaseMenu();
+                selection = UserInput.getPurchaseMenuOption();
 
-                String selection = scanner.nextLine().trim().toLowerCase();
 
-                if (selection.equals("m")){
+                if (selection.equals("feed")){
 
-                    money.feedMoney();
+                    BigDecimal moneyInserted = UserInput.getMoney();
+                    money.feedMoney(moneyInserted);
 
-                    //feed money method
-                } else if (selection.equals("s")) {
-                    purchase.selectItem();
-                } else if (selection.equals("f")){
-                    //give change method
-                    //update balance method
+//                    UserOutput.displayPurchaseMenu();
+//                    selection = UserInput.getPurchaseMenuOption();
+
+                    //after feed, make it go back to purchase menu without home menu
+
+                } else if (selection.equals("select")) {
+
+                    inventory2.displayInventory();
+
+                    String slotID = UserInput.getSlotID();
+
+                    money.applyDiscount(slotID);
+
+                    money.updateMoney(slotID); //if it runs -> then selectItem, checks if money is sufficient
+
+                    try {
+
+                        purchase.selectItem(slotID);
+
+                    } catch (FileNotFoundException e){
+                        System.out.println("This item does not exist");
+                    }
+
+                    inventory2.updateInventory(slotID);
+                    money.applyDiscount(slotID);
+
+
+                } else if (selection.equals("finish")){
+
+                    money.returnChange();
+                    //update balance method to $0
                     UserInput.getHomeScreenOption();
                 }
 
